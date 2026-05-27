@@ -59,8 +59,6 @@
     .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: #fff; border: none; border-radius: var(--radius); padding: 13px 22px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; transition: background 0.15s; }
     .btn-primary:hover { background: var(--green-dark); }
-    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text); border: 0.5px solid var(--border-md); border-radius: var(--radius); padding: 13px 22px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; transition: background 0.15s; }
-    .btn-secondary:hover { background: var(--bg-secondary); }
 
     /* DIVIDER */
     .divider { height: 0.5px; background: var(--border); margin: 0 2rem; }
@@ -99,10 +97,6 @@
     .form-section { background: var(--bg); border: 2px solid var(--green); border-radius: var(--radius-lg); padding: 2rem; }
     .form-section h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
     .form-section > p { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.5rem; }
-
-    .seg-toggle { display: flex; gap: 8px; margin-bottom: 1.5rem; }
-    .seg-btn { flex: 1; padding: 10px; border-radius: var(--radius); border: 0.5px solid var(--border-md); background: transparent; cursor: pointer; font-family: inherit; font-size: 14px; color: var(--text-secondary); transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
-    .seg-btn.active { background: var(--green-light); color: var(--green-dark); border-color: var(--green-mid); font-weight: 500; }
 
     /* Formspree form fields */
     #interest-form input[type="text"],
@@ -147,11 +141,6 @@
     [data-fs-success] p { font-weight: 500; }
     [data-fs-success] .sub { font-weight: 400; font-size: 13px; margin-top: 4px; }
 
-    .intent-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; margin-top: 4px; }
-    .intent-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
-    .intent-chip { padding: 8px 14px; font-size: 13px; border: 0.5px solid var(--border-md); border-radius: 20px; cursor: pointer; background: transparent; font-family: inherit; color: var(--text-secondary); transition: all 0.15s; }
-    .intent-chip.selected { background: var(--green-light); color: var(--green-dark); border-color: var(--green-mid); }
-
     /* Formspree submit button — styled via data-fs-submit-btn */
     [data-fs-submit-btn] {
       width: 100%; margin-top: 14px; background: var(--green); color: #fff;
@@ -187,8 +176,7 @@
     <h1>La transizione non deve<br>costare i tuoi <em>dipendenti</em></h1>
     <p>Formiamo le persone a lavorare <em>con</em> le linee automatizzate — non a essere sostituite da esse. Supporto tecnico e psicologico per un cambiamento che funziona davvero.</p>
     <div class="cta-row">
-      <button class="btn-primary" onclick="scrollToForm('azienda')"><i class="ti ti-building"></i> Sono un'azienda</button>
-      <button class="btn-secondary" onclick="scrollToForm('dipendente')"><i class="ti ti-user"></i> Sono un dipendente</button>
+      <button class="btn-primary" onclick="scrollToForm()"><i class="ti ti-building"></i> Scopri i percorsi aziendali</button>
     </div>
   </div>
 
@@ -278,16 +266,7 @@
   <div class="section" id="form-anchor" style="padding-top:0;">
     <div class="form-section">
       <h2>Sei interessato? Diccelo ora</h2>
-      <p>Non è un acquisto — è una manifestazione di interesse. Ci aiuta a capire se questa soluzione è utile per te.</p>
-
-      <div class="seg-toggle">
-        <button type="button" class="seg-btn active" id="btn-azienda" onclick="selectSegment('azienda')">
-          <i class="ti ti-building"></i> Sono un'azienda
-        </button>
-        <button type="button" class="seg-btn" id="btn-dipendente" onclick="selectSegment('dipendente')">
-          <i class="ti ti-user"></i> Sono un dipendente
-        </button>
-      </div>
+      <p>Richiedi informazioni sui percorsi di accompagnamento alla transizione per la tua realtà aziendale.</p>
 
       <div data-fs-success>
         <span class="success-icon"><i class="ti ti-circle-check"></i></span>
@@ -299,7 +278,6 @@
 
       <form id="interest-form">
         <input type="hidden" name="segmento" id="f-segment" value="azienda" data-fs-field />
-        <input type="hidden" name="interessi" id="f-interests" value="" />
 
         <input type="text"  name="nome"   id="f-name"  placeholder="Nome e cognome"  required data-fs-field />
         <span data-fs-error="nome"></span>
@@ -308,8 +286,8 @@
         <span data-fs-error="email"></span>
 
         <div id="f-azienda-fields">
-          <input type="text" name="azienda" id="f-company" class="extra-field" placeholder="Nome azienda" />
-          <select name="dimensione" id="f-size" class="extra-field">
+          <input type="text" name="azienda" id="f-company" class="extra-field" placeholder="Nome azienda" required />
+          <select name="dimensione" id="f-size" class="extra-field" required>
             <option value="">Numero di dipendenti coinvolti</option>
             <option>1–10</option>
             <option>11–50</option>
@@ -318,16 +296,7 @@
           </select>
         </div>
 
-        <p class="intent-label">Cosa ti interessa di più?</p>
-        <div class="intent-row">
-          <button type="button" class="intent-chip" onclick="toggleChip(this)">Corsi di riqualificazione</button>
-          <button type="button" class="intent-chip" onclick="toggleChip(this)">Supporto psicologico</button>
-          <button type="button" class="intent-chip" onclick="toggleChip(this)">Tutela legale</button>
-          <button type="button" class="intent-chip" onclick="toggleChip(this)">KPI & monitoraggio</button>
-          <button type="button" class="intent-chip" onclick="toggleChip(this)">Pacchetto completo</button>
-        </div>
-
-        <button type="submit" data-fs-submit-btn>Manifesta il tuo interesse →</button>
+        <button type="submit" data-fs-submit-btn>Manifesta l'interesse aziendale →</button>
       </form>
     </div>
   </div>
@@ -344,7 +313,6 @@
 
   <script>
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwCHseuxNj3gPjgQMnr29chZN7QPAhSBT47D8RaONfUEwkXVXrwb8buSAKB5zKwlbal/exec';
-    let currentSegment = 'azienda';
 
     /* ── KPI: legge dati aggregati da Google Sheets ── */
     async function loadKPIs() {
@@ -385,11 +353,10 @@
 
     /* ── Registra iscrizione su Google Sheets (dopo submit Formspree) ── */
     function trackSignup() {
-      const name      = document.getElementById('f-name').value.trim();
-      const email     = document.getElementById('f-email').value.trim();
-      const company   = document.getElementById('f-company').value.trim();
-      const size      = document.getElementById('f-size').value;
-      const interests = document.getElementById('f-interests').value;
+      const name    = document.getElementById('f-name').value.trim();
+      const email   = document.getElementById('f-email').value.trim();
+      const company = document.getElementById('f-company').value.trim();
+      const size    = document.getElementById('f-size').value;
 
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
@@ -398,8 +365,9 @@
         body: JSON.stringify({
           type: 'signup',
           name, email,
-          segment: currentSegment,
-          company, size, interests
+          segment: 'azienda',
+          company, size,
+          interests: ''
         })
       }).catch(() => {});
 
@@ -407,56 +375,9 @@
       setTimeout(loadKPIs, 1500);
     }
 
-    /* ── Segmento toggle ── */
-    function selectSegment(seg) {
-      currentSegment = seg;
-      document.getElementById('f-segment').value = seg;
-      document.getElementById('btn-azienda').classList.toggle('active', seg === 'azienda');
-      document.getElementById('btn-dipendente').classList.toggle('active', seg === 'dipendente');
-      document.getElementById('f-azienda-fields').style.display = seg === 'azienda' ? 'block' : 'none';
-      document.getElementById('f-email').placeholder = seg === 'azienda' ? 'Email aziendale' : 'La tua email';
-    }
-
     /* ── Scroll al form ── */
-    function scrollToForm(seg) {
-      selectSegment(seg);
+    function scrollToForm() {
       document.getElementById('form-anchor').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    /* ── Chip interessi (Logica Intelligente per Pacchetto Completo) ── */
-    function toggleChip(el) {
-      const allChips = Array.from(document.querySelectorAll('.intent-chip'));
-      const fullPackageChip = allChips.find(c => c.textContent === 'Pacchetto completo');
-      
-      // Caso 1: È stato cliccato il "Pacchetto completo"
-      if (el === fullPackageChip) {
-        if (!el.classList.contains('selected')) {
-          allChips.forEach(c => c.classList.remove('selected'));
-          el.classList.add('selected');
-        } else {
-          el.classList.remove('selected');
-        }
-      } 
-      // Caso 2: È stato cliccato un altro interesse singolo
-      else {
-        if (fullPackageChip) fullPackageChip.classList.remove('selected');
-        
-        el.classList.toggle('selected');
-        
-        const singleChips = allChips.filter(c => c !== fullPackageChip);
-        const selectedSingles = singleChips.filter(c => c.classList.contains('selected'));
-        
-        // Se TUTTI i singoli interessi sono selezionati, deselezionali e attiva il pacchetto completo
-        if (selectedSingles.length === singleChips.length) {
-          singleChips.forEach(c => c.classList.remove('selected'));
-          if (fullPackageChip) fullPackageChip.add('selected') || fullPackageChip.classList.add('selected');
-        }
-      }
-
-      // Aggiorna la stringa nel campo nascosto inviato a Formspree / Sheets
-      document.getElementById('f-interests').value =
-        Array.from(document.querySelectorAll('.intent-chip.selected'))
-             .map(c => c.textContent).join(', ');
     }
 
     /* ── Intercetta successo Formspree per trackare su Sheets ── */
@@ -472,7 +393,6 @@
     });
 
     /* ── Init ── */
-    document.getElementById('f-azienda-fields').style.display = 'block';
     trackVisit();
     loadKPIs();
   </script>
