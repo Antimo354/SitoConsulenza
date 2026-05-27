@@ -194,7 +194,6 @@
 
   <div class="divider"></div>
 
-  <!-- KPI BAR — dati live da Google Sheets -->
   <div class="kpi-bar">
     <div class="kpi-card">
       <div class="kpi-label">Visitatori</div>
@@ -276,13 +275,11 @@
     </div>
   </div>
 
-  <!-- FORM SECTION -->
   <div class="section" id="form-anchor" style="padding-top:0;">
     <div class="form-section">
       <h2>Sei interessato? Diccelo ora</h2>
       <p>Non è un acquisto — è una manifestazione di interesse. Ci aiuta a capire se questa soluzione è utile per te.</p>
 
-      <!-- Segment toggle (non è un campo del form, aggiorna hidden input) -->
       <div class="seg-toggle">
         <button type="button" class="seg-btn active" id="btn-azienda" onclick="selectSegment('azienda')">
           <i class="ti ti-building"></i> Sono un'azienda
@@ -292,19 +289,15 @@
         </button>
       </div>
 
-      <!-- Formspree success banner -->
       <div data-fs-success>
         <span class="success-icon"><i class="ti ti-circle-check"></i></span>
         <p>Grazie! Il tuo interesse è stato registrato.<br>Ti contatteremo presto.</p>
         <p class="sub">I KPI sono stati aggiornati in tempo reale.</p>
       </div>
 
-      <!-- Formspree global error -->
       <div data-fs-error=""></div>
 
-      <!-- Formspree-managed form -->
       <form id="interest-form">
-        <!-- Hidden fields: segmento e interessi selezionati -->
         <input type="hidden" name="segmento" id="f-segment" value="azienda" data-fs-field />
         <input type="hidden" name="interessi" id="f-interests" value="" />
 
@@ -343,7 +336,6 @@
     Transition5 è attualmente in fase di pretotipazione. I dati raccolti servono esclusivamente a validare la domanda di mercato. &nbsp;·&nbsp; © 2025 Transition5
   </footer>
 
-  <!-- Formspree Vanilla JS SDK (CDN) -->
   <script>
     window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
     formspree('initForm', { formElement: '#interest-form', formId: 'mnjrokgo' });
@@ -425,14 +417,43 @@
       document.getElementById('f-email').placeholder = seg === 'azienda' ? 'Email aziendale' : 'La tua email';
     }
 
+    /* ── Scroll al form ── */
     function scrollToForm(seg) {
       selectSegment(seg);
       document.getElementById('form-anchor').scrollIntoView({ behavior: 'smooth' });
     }
 
-    /* ── Chip interessi ── */
+    /* ── Chip interessi (Logica Intelligente per Pacchetto Completo) ── */
     function toggleChip(el) {
-      el.classList.toggle('selected');
+      const allChips = Array.from(document.querySelectorAll('.intent-chip'));
+      const fullPackageChip = allChips.find(c => c.textContent === 'Pacchetto completo');
+      
+      // Caso 1: È stato cliccato il "Pacchetto completo"
+      if (el === fullPackageChip) {
+        if (!el.classList.contains('selected')) {
+          allChips.forEach(c => c.classList.remove('selected'));
+          el.classList.add('selected');
+        } else {
+          el.classList.remove('selected');
+        }
+      } 
+      // Caso 2: È stato cliccato un altro interesse singolo
+      else {
+        if (fullPackageChip) fullPackageChip.classList.remove('selected');
+        
+        el.classList.toggle('selected');
+        
+        const singleChips = allChips.filter(c => c !== fullPackageChip);
+        const selectedSingles = singleChips.filter(c => c.classList.contains('selected'));
+        
+        // Se TUTTI i singoli interessi sono selezionati, deselezionali e attiva il pacchetto completo
+        if (selectedSingles.length === singleChips.length) {
+          singleChips.forEach(c => c.classList.remove('selected'));
+          if (fullPackageChip) fullPackageChip.add('selected') || fullPackageChip.classList.add('selected');
+        }
+      }
+
+      // Aggiorna la stringa nel campo nascosto inviato a Formspree / Sheets
       document.getElementById('f-interests').value =
         Array.from(document.querySelectorAll('.intent-chip.selected'))
              .map(c => c.textContent).join(', ');
@@ -440,18 +461,6 @@
 
     /* ── Intercetta successo Formspree per trackare su Sheets ── */
     document.getElementById('interest-form').addEventListener('submit', function() {
-      // Il SDK Formspree gestisce l'invio; ascoltiamo il banner success che appare nel DOM
-      const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(m) {
-          m.addedNodes.forEach(function(node) {
-            if (node.nodeType === 1 && node.hasAttribute && node.hasAttribute('data-fs-success')) {
-              trackSignup();
-              observer.disconnect();
-            }
-          });
-        });
-      });
-      // Alternativa più affidabile: polling sul display del banner success
       const checkSuccess = setInterval(function() {
         const banner = document.querySelector('[data-fs-success]');
         if (banner && banner.style.display !== 'none' && getComputedStyle(banner).display !== 'none') {
@@ -459,7 +468,6 @@
           trackSignup();
         }
       }, 300);
-      // Stop dopo 10s per sicurezza
       setTimeout(function() { clearInterval(checkSuccess); }, 10000);
     });
 
