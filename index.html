@@ -239,6 +239,7 @@
       <h2>Un percorso completo per la transizione</h2>
       <p>Non vendiamo solo un corso. Accompagniamo l'intera organizzazione — dai manager ai lavoratori — attraverso ogni fase del cambiamento.</p>
       <div class="pillars">
+        <div class="pillars">
         <div class="pillar">
           <div class="pillar-num">01 — Formazione</div>
           <h4>Nuovi ruoli operativi</h4>
@@ -266,7 +267,7 @@
   <div class="section" id="form-anchor" style="padding-top:0;">
     <div class="form-section">
       <h2>Sei interessato? Diccelo ora</h2>
-      <p>Richiedi informazioni sui percorsi di accompagnamento alla transizione per la tua realtà aziendale.</p>
+      <p>Non è un acquisto — è una manifestazione di interesse. Ci aiuta a capire se questa soluzione è utile per te.</p>
 
       <div data-fs-success>
         <span class="success-icon"><i class="ti ti-circle-check"></i></span>
@@ -278,6 +279,7 @@
 
       <form id="interest-form">
         <input type="hidden" name="segmento" id="f-segment" value="azienda" data-fs-field />
+        <input type="hidden" name="interessi" id="f-interests" value="" />
 
         <input type="text"  name="nome"   id="f-name"  placeholder="Nome e cognome"  required data-fs-field />
         <span data-fs-error="nome"></span>
@@ -296,13 +298,13 @@
           </select>
         </div>
 
-        <button type="submit" data-fs-submit-btn>Manifesta l'interesse aziendale →</button>
+        <button type="submit" data-fs-submit-btn>Manifesta il tuo interesse →</button>
       </form>
     </div>
   </div>
 
   <footer>
-    Transition5 è attualmente in fase di pretotipazione. I dati raccolti servono esclusivamente a validare la domanda di mercato. &nbsp;·&nbsp; © 2025 Transition5
+    Transition5 è attualmente in fase di pretotipazione. I dati raccolti servono esclusivamente a validare la domanda di mercato. &nbsp;·&nbsp; © 2026 Transition5
   </footer>
 
   <script>
@@ -353,10 +355,10 @@
 
     /* ── Registra iscrizione su Google Sheets (dopo submit Formspree) ── */
     function trackSignup() {
-      const name    = document.getElementById('f-name').value.trim();
-      const email   = document.getElementById('f-email').value.trim();
-      const company = document.getElementById('f-company').value.trim();
-      const size    = document.getElementById('f-size').value;
+      const name      = document.getElementById('f-name').value.trim();
+      const email     = document.getElementById('f-email').value.trim();
+      const company   = document.getElementById('f-company').value.trim();
+      const size      = document.getElementById('f-size').value;
 
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
@@ -366,7 +368,7 @@
           type: 'signup',
           name, email,
           segment: 'azienda',
-          company, size,
+          company, size, 
           interests: ''
         })
       }).catch(() => {});
