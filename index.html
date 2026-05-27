@@ -47,9 +47,9 @@
     /* NAV */
     nav { display: flex; align-items: center; padding: 1.25rem 2rem; border-bottom: 0.5px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 100; }
     .nav-content { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1440px; margin: 0 auto; }
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .nav-logo-link { display: flex; align-items: center; text-decoration: none; margin-left: auto; /* Spinge il logo a destra */ }
-    .nav-logo-img { height: 40px; width: auto; object-fit: contain; /* Rimosso filtro per tema scuro per mantenere i colori originali */ }
+    .nav-right { display: flex; align-items: center; width: 100%; justify-content: space-between; }
+    .nav-logo-link { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo-img { height: 40px; width: auto; object-fit: contain; }
     .nav-logo-fallback { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.5px; color: var(--text); }
     .nav-logo-fallback span { color: var(--green); }
     .nav-badge { font-size: 11px; font-weight: 500; background: var(--bg-secondary); border: 0.5px solid var(--border); padding: 4px 10px; border-radius: 20px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
@@ -176,7 +176,7 @@
       <div class="nav-right">
         <div class="nav-badge"><i class="ti ti-flask"></i> Pretotipo in corso</div>
         <a href="#" class="nav-logo-link">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAiMAAACfCAYAAACm/wX7AAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lDQ1BQaG90b3Nob3AgSUNDIFByb2ZpbGUAAHjanVNnVFPgFj33voAQkqgFBFWm28LYgYUm4O4FFwYURAGJigq2EVGUKb3WNGpt71mRsYZgjBy66vQGByXQ7v4D5u8H/p22+23668383321Vf4fXpAFUqQfALH4KGi/H5+DqOimR37w3j3i58pL5f57jWd4t6f5v7m1z/8g06m8rYI06j+w//r458m/5WwY6ZzQZ4fW98W0/hV8f4cO9h7O+j+/7b7v/r7v/+9v7///z4/4f/7///4f///7f9///f////8AAAAAACAgIAA==..." alt="Transition5 Logo" class="nav-logo-img">
+          <img src="logo.png" alt="Transition5 Logo" class="nav-logo-img">
           <span class="nav-logo-fallback" style="display:none;">Transition<span>5</span></span>
         </a>
       </div>
@@ -278,7 +278,7 @@
   <div class="section" id="form-anchor" style="padding-top:0;">
     <div class="form-section">
       <h2>Sei interessato? Diccelo ora</h2>
-      <p>Non è un acquisto — è una manifestation di interesse. Ci aiuta a capire se questa soluzione è utile per te.</p>
+      <p>Non è un acquisto — è una manifestazione di interesse. Ci aiuta a capire se questa soluzione è utile per te.</p>
 
       <div data-fs-success>
         <span class="success-icon"><i class="ti ti-circle-check"></i></span>
