@@ -114,7 +114,6 @@
       <p>Formiamo le persone a lavorare con le linee automatizzate — non a essere sostituite da esse. Supporto tecnico e psicologico per la transizione Industria 5.0.</p>
       
       <div class="cta-row">
-        <!-- Aggiunto link al form -->
         <a href="#contatti" class="btn-primary">
           Inizia la transizione <i class="ti ti-arrow-right"></i>
         </a>
@@ -127,7 +126,7 @@
       <div class="kpi-card">
         <div class="kpi-label">
           <span class="kpi-value">98%</span>
-          Adattamento linee
+          Adattamento lines
         </div>
       </div>
       <div class="kpi-card">
@@ -146,26 +145,29 @@
 
     <div class="divider"></div>
 
-    <!-- NUOVA SEZIONE CONTATTI -->
+    <!-- SEZIONE CONTATTI CONFIGURATA CON FORMSPREE -->
     <section class="contact-section" id="contatti">
       <h2>Richiedi un consulto</h2>
       <p>Lasciaci i dati della tua azienda. Ti ricontatteremo per valutare insieme il percorso migliore per il tuo team.</p>
       
-      <form action="#" method="POST">
+      <form action="https://formspree.io/f/mnjrokgo" method="POST">
         <div class="form-group">
           <label for="nome" class="form-label">Nome Referente o Azienda</label>
-          <input type="text" id="nome" name="nome" class="form-input" placeholder="Es. Mario Rossi / TechCorp SpA" required>
+          <input type="text" id="nome" name="Nome/Azienda" class="form-input" placeholder="Es. Mario Rossi / TechCorp SpA" required>
         </div>
         
         <div class="form-group">
           <label for="email" class="form-label">Email lavorativa</label>
-          <input type="email" id="email" name="email" class="form-input" placeholder="mario.rossi@azienda.it" required>
+          <input type="email" id="email" name="_replyto" class="form-input" placeholder="mario.rossi@azienda.it" required>
         </div>
         
         <div class="form-group">
           <label for="telefono" class="form-label">Numero di telefono</label>
-          <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="+39 000 000 0000" required>
+          <input type="tel" id="telefono" name="Telefono" class="form-input" placeholder="+39 000 000 0000" required>
         </div>
+        
+        <!-- Oggetto personalizzato per le tue email di notifica -->
+        <input type="hidden" name="_subject" value="Nuova richiesta di transizione da Transition5">
         
         <button type="submit" class="btn-primary" style="margin-top: 10px; width: 100%;">
           Invia richiesta <i class="ti ti-send"></i>
